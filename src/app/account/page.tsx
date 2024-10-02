@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const Home = () => {
+const Account = () => {
   return (
     <div>
       <main>
@@ -11,14 +11,14 @@ const Home = () => {
           height={38}
           priority
         />
-        <span>Home</span>
+        <span>Account</span>
       </main>
 
       <footer>
-        <span>footer</span>
+        <span>NEXT.js</span>
       </footer>
     </div>
   );
 };
 
-export default Home;
+export default Account;
