@@ -1,0 +1,103 @@
+@import './extends';
+
+@mixin media-screen-orientation($var, $width, $orient: null) {
+  @if $var == 'min' {
+    @media screen and (min-width: $width) {
+      @if $orient == 'land' {
+        @media (orientation: landscape) {
+          @content;
+        }
+      } @else if $orient == 'port' {
+        @media (orientation: portrait) {
+          @content;
+        }
+      } @else {
+        @content;
+      }
+    }
+  } @else if $var == 'max' {
+    @media screen and (max-width: $width) {
+      @if $orient == 'land' {
+        @media (orientation: landscape) {
+          @content;
+        }
+      } @else if $orient == 'port' {
+        @media (orientation: portrait) {
+          @content;
+        }
+      } @else {
+        @content;
+      }
+    }
+  }
+} // @include media-screen('min', '600px', 'land'){}
+
+@mixin media-screen-range-orientation($minWidth, $maxWidth, $orient: null) {
+  @media screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @if $orient == 'land' {
+      @media (orientation: landscape) {
+        @content;
+      }
+    } @else if $orient == 'port' {
+      @media (orientation: portrait) {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+} // @include media-screen-range('600px', '1200px', 'port'){}
+
+@mixin theme-provider() {
+  &.dark {
+    @include theme('dark');
+    @content;
+  }
+
+  &.light {
+    @include theme('light');
+    @content;
+  }
+}
+
+@mixin box-shadow($offset, $color) {
+  box-shadow: $offset $offset 0 0 $color;
+}
+
+@mixin animation-slide-left($x: 10px) {
+  -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  @include slide-left($x);
+}
+
+@mixin animation-slide-top($x: 10px) {
+  -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  @include slide-top($x);
+}
+
+@mixin animation-fadein {
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: fadein 0.5s;
+}
+
+@mixin animation-fadeOut {
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  animation: fadeOut 0.5s;
+}

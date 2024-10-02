@@ -1,0 +1,16 @@
+@import '../../styles/index.scss';
+
+.container {
+  &.page {
+    display: flex;
+    margin: 0 auto;
+    max-width: $mobile;
+    background-color: teal;
+  }
+
+  /*
+  @include media-screen-orientation('min', $tablet) {
+    width: calc(100% - 32px);
+  }
+  */
+}

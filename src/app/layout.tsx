@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
-import '../styles/index.scss';
+import '../styles/_global.scss';
+import '../styles/_reset.scss';
+import Guard from '@/components/Guard';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -31,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Guard>{children}</Guard>
       </body>
     </html>
   );

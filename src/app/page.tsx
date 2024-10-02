@@ -1,22 +1,13 @@
-import Image from 'next/image';
+import Container from '@/components/Container';
 
 const Home = () => {
   return (
     <div>
       <main>
-        <Image
-          src='https://nextjs.org/icons/next.svg'
-          alt='Next.js logo'
-          width={180}
-          height={38}
-          priority
-        />
-        <span>Home</span>
+        <Container label={'page'}>
+          <span>Home</span>
+        </Container>
       </main>
-
-      <footer>
-        <span>footer</span>
-      </footer>
     </div>
   );
 };
