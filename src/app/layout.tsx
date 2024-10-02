@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import '../styles/_global.scss';
 import '../styles/_reset.scss';
-import Guard from '@/components/Guard';
+import { ChildrenProps } from '@/types/global';
+import ClientSideLayout from '@/components/ClientSide';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -25,15 +26,11 @@ export const viewport: Viewport = {
   themeColor: '#000000'
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Guard>{children}</Guard>
+        <ClientSideLayout>{children}</ClientSideLayout>
       </body>
     </html>
   );
