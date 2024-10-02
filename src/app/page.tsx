@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import Container from '@/components/Container';
-import Image from 'next/image'; // Import next/image for optimization
+import Image from 'next/image';
 
 const CameraComponent = () => {
   const webcamRef = useRef<Webcam>(null);
