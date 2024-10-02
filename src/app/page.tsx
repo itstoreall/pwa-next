@@ -30,7 +30,7 @@ const CameraComponent = () => {
         width={200}
         height={200}
         videoConstraints={{
-          facingMode: 'environment' // back camera for mobile devices
+          facingMode: 'user' // environment
         }}
       />
       <button onClick={capturePhoto}>Take Photo</button>
