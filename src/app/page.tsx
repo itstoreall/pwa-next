@@ -30,21 +30,20 @@ const CameraComponent = () => {
         width={200}
         height={200}
         videoConstraints={{
-          facingMode: 'environment' // for mobile devices, use back camera
+          facingMode: 'environment' // back camera for mobile devices
         }}
       />
       <button onClick={capturePhoto}>Take Photo</button>
       {imageSrc && (
         <div>
           <h2>Captured Photo:</h2>
-          {/* Use next/image for optimized image rendering */}
           <Image
             src={imageSrc}
             alt='Captured'
             width={200}
             height={200}
-            priority // Ensure immediate load for important images
-            unoptimized // Since we're using a data URL from the webcam, skip built-in optimization
+            priority
+            unoptimized
           />
         </div>
       )}
