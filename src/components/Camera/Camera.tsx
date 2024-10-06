@@ -1,10 +1,8 @@
-'use client';
 import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
-import Container from '@/components/Container';
 import Image from 'next/image';
 
-const CameraComponent = () => {
+const Camera = () => {
   const webcamRef = useRef<Webcam>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
@@ -58,17 +56,4 @@ const CameraComponent = () => {
   );
 };
 
-const Home = () => {
-  return (
-    <div>
-      <main>
-        <Container label={'page'}>
-          <CameraComponent />
-          <span>Home</span>
-        </Container>
-      </main>
-    </div>
-  );
-};
-
-export default Home;
+export default Camera;
