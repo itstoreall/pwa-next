@@ -9,7 +9,8 @@ const withPWA = withPWAInit({
   swcMinify: true,
   disable: false,
   workboxOptions: {
-    disableDevLogs: true
+    disableDevLogs: true,
+    importScripts: ['notification-sw.js']
     // runtimeCaching: []
   }
 });

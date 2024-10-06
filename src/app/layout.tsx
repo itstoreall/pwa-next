@@ -4,6 +4,9 @@ import '../styles/_global.scss';
 import '../styles/_reset.scss';
 import { ChildrenProps } from '@/types/global';
 import ClientSideLayout from '@/components/ClientSide';
+import NotificationManager from '@/components/NotificationManager';
+import Container from '@/components/Container';
+import Link from 'next/link';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,6 +33,21 @@ export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Container label={'page'}>
+          <header style={{ marginBottom: '25px' }}>
+            <nav style={{ marginBottom: '25px' }}>
+              <ul style={{ display: 'flex', gap: '20px' }}>
+                <li>
+                  <Link href='/'>Home</Link>
+                </li>
+                <li>
+                  <Link href='/account'>Account</Link>
+                </li>
+              </ul>
+            </nav>
+            <NotificationManager />
+          </header>
+        </Container>
         <ClientSideLayout>{children}</ClientSideLayout>
       </body>
     </html>
