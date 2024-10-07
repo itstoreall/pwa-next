@@ -6,7 +6,10 @@ import Container from '@/components/Container';
 const sectionStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '30px'
+  gap: '30px',
+  width: '100%',
+  color: 'black',
+  backgroundColor: 'yellowgreen'
 };
 
 const HomePage = () => {

@@ -1,14 +1,18 @@
 'use client';
 
-import { CSSProperties, useEffect, useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { CSSProperties, useState } from 'react';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/navigation';
 import { auth } from '@/firebase/config';
 import Container from '@/components/Container';
 
 const sectionStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '30px'
+  gap: '30px',
+  width: '100%',
+  color: 'black',
+  backgroundColor: 'tomato'
 };
 
 const inputBlockStyle: CSSProperties = {
@@ -17,26 +21,21 @@ const inputBlockStyle: CSSProperties = {
   marginBottom: '10px'
 };
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
-
-  useEffect(() => {
-    console.log('user, loading, error:', Boolean(user), loading, error);
-  }, [user, loading, error]);
+  const [user] = useSignInWithEmailAndPassword(auth);
+  const router = useRouter();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      console.log('Email:', email);
-      console.log('Password:', password);
-      const res = await createUserWithEmailAndPassword(email, password);
-      console.log('res:', res);
+      await user(email, password);
+      sessionStorage.setItem('user', 'true');
       setEmail('');
       setPassword('');
+      router.push('/account');
     } catch (err) {
       console.error(err);
     }
@@ -47,7 +46,7 @@ const SignUpPage = () => {
       <main>
         <Container label={'page'}>
           <section style={sectionStyle}>
-            <span>Sign-Up Page</span>
+            <span>Sign-In Page</span>
             <form onSubmit={handleSubmit}>
               <div style={inputBlockStyle}>
                 <label htmlFor='email'>Email:</label>
@@ -71,7 +70,7 @@ const SignUpPage = () => {
                 />
               </div>
 
-              <button type='submit'>Sign Up</button>
+              <button type='submit'>Sign In</button>
             </form>
           </section>
         </Container>
@@ -80,4 +79,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

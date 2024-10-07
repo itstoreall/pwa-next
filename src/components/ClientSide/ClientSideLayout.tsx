@@ -2,6 +2,6 @@
 
 import { ChildrenProps } from '@/types/global';
 
-export default function ClientSideLayout({ children }: ChildrenProps) {
-  return <>{children}</>;
-}
+const ClientSideLayout = ({ children }: ChildrenProps) => <> {children}</>;
+
+export default ClientSideLayout;
