@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/firebase/config';
@@ -24,20 +25,28 @@ const inputBlockStyle: CSSProperties = {
 const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isErr, setIsErr] = useState(false);
 
   const [user] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
 
+  useEffect(() => {
+    if (!isErr) return;
+    setIsErr(false);
+  }, [email, password]);
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await user(email, password);
+      const res = await user(email, password);
+      if (!res) return setIsErr(true);
       sessionStorage.setItem('user', 'true');
       setEmail('');
       setPassword('');
       router.push('/account');
     } catch (err) {
-      console.error(err);
+      console.error('ERROR in handleSubmit:', err);
+      setIsErr(true);
     }
   };
 
@@ -71,6 +80,18 @@ const SignInPage = () => {
               </div>
 
               <button type='submit'>Sign In</button>
+
+              {isErr && (
+                <span
+                  style={{
+                    padding: '2px 10px',
+                    color: 'red',
+                    backgroundColor: 'black'
+                  }}
+                >
+                  {'Error!'}
+                </span>
+              )}
             </form>
           </section>
         </Container>

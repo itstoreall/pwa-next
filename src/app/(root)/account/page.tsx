@@ -37,6 +37,10 @@ const AccountPage = () => {
           <section style={sectionStyle}>
             <h2>Account Page</h2>
 
+            <div>
+              <span>{user?.email}</span>
+            </div>
+
             <button
               onClick={() => {
                 signOut(auth);
