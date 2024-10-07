@@ -41,6 +41,9 @@ export default function RootLayout({ children }: ChildrenProps) {
                   <Link href='/'>Home</Link>
                 </li>
                 <li>
+                  <Link href='/sign-up'>Sign-Up</Link>
+                </li>
+                <li>
                   <Link href='/account'>Account</Link>
                 </li>
               </ul>

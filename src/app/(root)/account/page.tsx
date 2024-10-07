@@ -10,7 +10,7 @@ const sectionStyle: CSSProperties = {
   gap: '30px'
 };
 
-const Account = () => {
+const AccountPage = () => {
   const [isCamera, setIsCamera] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ const Account = () => {
       <main>
         <Container label={'page'}>
           <section style={sectionStyle}>
-            <span>Account</span>
+            <h2>Account Page</h2>
             <button onClick={() => setIsCamera(!isCamera)}>Camera</button>
           </section>
           {isCamera && <Camera />}
@@ -28,4 +28,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountPage;

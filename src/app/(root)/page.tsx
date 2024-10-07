@@ -9,13 +9,13 @@ const sectionStyle: CSSProperties = {
   gap: '30px'
 };
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div>
       <main>
         <Container label={'page'}>
           <section style={sectionStyle}>
-            <span>Home</span>
+            <h2>Home Page</h2>
           </section>
         </Container>
       </main>
@@ -23,4 +23,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
