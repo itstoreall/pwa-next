@@ -26,7 +26,8 @@ const AccountPage = () => {
 
   useLayoutEffect(() => {
     const userSession = sessionStorage.getItem('user');
-    if (user || userSession) return;
+    console.log('user:', user, userSession);
+    if (user && userSession) return;
     router.push('/sign-in');
   }, [user]);
 

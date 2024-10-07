@@ -22,6 +22,13 @@ const inputBlockStyle: CSSProperties = {
   marginBottom: '10px'
 };
 
+const errorStyle: CSSProperties = {
+  padding: '5px 10px',
+  fontSize: '12px',
+  color: 'red',
+  backgroundColor: 'black'
+};
+
 const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +63,7 @@ const SignInPage = () => {
         <Container label={'page'}>
           <section style={sectionStyle}>
             <span>Sign-In Page</span>
+
             <form onSubmit={handleSubmit}>
               <div style={inputBlockStyle}>
                 <label htmlFor='email'>Email:</label>
@@ -81,17 +89,7 @@ const SignInPage = () => {
 
               <button type='submit'>Sign In</button>
 
-              {isErr && (
-                <span
-                  style={{
-                    padding: '2px 10px',
-                    color: 'red',
-                    backgroundColor: 'black'
-                  }}
-                >
-                  {'Error!'}
-                </span>
-              )}
+              {isErr && <span style={errorStyle}>{'Error!'}</span>}
             </form>
           </section>
         </Container>

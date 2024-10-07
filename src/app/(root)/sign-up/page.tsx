@@ -1,10 +1,8 @@
 'use client';
 
-import { CSSProperties, useEffect, useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/navigation';
-import { auth } from '@/firebase/config';
+import { CSSProperties, useState } from 'react';
 import Container from '@/components/Container';
+import useSignUp from '@/firebase/hooks/useSignUp';
 
 const sectionStyle: CSSProperties = {
   display: 'flex',
@@ -21,32 +19,26 @@ const inputBlockStyle: CSSProperties = {
   marginBottom: '10px'
 };
 
+const errorStyle: CSSProperties = {
+  padding: '5px 10px',
+  fontSize: '12px',
+  color: 'red',
+  backgroundColor: 'black'
+};
+
 const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    console.log('user, loading, error:', Boolean(user), loading, error);
-  }, [user, loading, error]);
+  const { signUp, loading, error } = useSignUp({
+    setEmail,
+    setPassword,
+    redirectPath: '/sign-in'
+  });
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try {
-      console.log('Email:', email);
-      console.log('Password:', password);
-      const res = await createUserWithEmailAndPassword(email, password);
-      console.log('res:', res);
-      setEmail('');
-      setPassword('');
-      router.push('/sign-in');
-    } catch (err) {
-      console.error(err);
-    }
+    await signUp(email, password);
   };
 
   return (
@@ -78,7 +70,11 @@ const SignUpPage = () => {
                 />
               </div>
 
-              <button type='submit'>Sign Up</button>
+              <button disabled={loading} type='submit'>
+                Sign Up
+              </button>
+
+              {error && <span style={errorStyle}>{error.message}</span>}
             </form>
           </section>
         </Container>
