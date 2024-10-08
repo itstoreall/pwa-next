@@ -1,8 +1,9 @@
 'use client';
 
 import { CSSProperties, useState } from 'react';
-import Container from '@/components/Container';
 import useSignUp from '@/firebase/hooks/useSignUp';
+import * as gt from '@/types/global';
+import Container from '@/components/Container';
 
 const sectionStyle: CSSProperties = {
   display: 'flex',
@@ -36,7 +37,7 @@ const SignUpPage = () => {
     redirectPath: '/sign-in'
   });
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: gt.SubmitFormEvent) => {
     e.preventDefault();
     await signUp(email, password);
   };

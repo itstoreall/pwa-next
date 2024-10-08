@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/firebase/config';
 
@@ -9,35 +9,31 @@ type Props = {
   redirectPath?: string;
 };
 
-const useSignUp = (props: Props) => {
+const useSignIn = (props: Props) => {
   const { setEmail, setPassword, redirectPath } = props;
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
-
+  const [user] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
 
-  const signUp = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string) => {
     try {
-      const res = await createUserWithEmailAndPassword(email, password);
+      const res = await user(email, password);
+      // console.log('res:', res);
       if (!res) return false;
+      sessionStorage.setItem('user', res.user.uid);
       if (setEmail) setEmail('');
       if (setPassword) setPassword('');
       if (redirectPath) router.push(redirectPath);
       return true;
     } catch (err) {
-      console.error('ERROR in signUp:', err);
+      console.error('ERROR in signIn:', err);
       return false;
     }
   };
 
   return {
-    createUser: createUserWithEmailAndPassword,
-    signUp,
-    user,
-    loading,
-    error
+    signIn
   };
 };
 
-export default useSignUp;
+export default useSignIn;

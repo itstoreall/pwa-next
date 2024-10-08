@@ -2,9 +2,8 @@
 'use client';
 
 import { CSSProperties, useEffect, useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/navigation';
-import { auth } from '@/firebase/config';
+import useSignIn from '@/firebase/hooks/useSignIn';
+import * as gt from '@/types/global';
 import Container from '@/components/Container';
 
 const sectionStyle: CSSProperties = {
@@ -34,27 +33,22 @@ const SignInPage = () => {
   const [password, setPassword] = useState('');
   const [isErr, setIsErr] = useState(false);
 
-  const [user] = useSignInWithEmailAndPassword(auth);
-  const router = useRouter();
+  const { signIn } = useSignIn({
+    setEmail,
+    setPassword,
+    redirectPath: '/account'
+  });
 
   useEffect(() => {
     if (!isErr) return;
     setIsErr(false);
   }, [email, password]);
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: gt.SubmitFormEvent) => {
     e.preventDefault();
-    try {
-      const res = await user(email, password);
-      if (!res) return setIsErr(true);
-      sessionStorage.setItem('user', 'true');
-      setEmail('');
-      setPassword('');
-      router.push('/account');
-    } catch (err) {
-      console.error('ERROR in handleSubmit:', err);
-      setIsErr(true);
-    }
+    const isSignedIn = await signIn(email, password);
+    // console.log('isSignedIn:', isSignedIn);
+    if (!isSignedIn) setIsErr(true);
   };
 
   return (
